@@ -17,8 +17,6 @@ window.ondevicemotion = function( data ) {
 pedometer = (tizen && tizen.humanactivitymonitor) ||
 (window.webapis && window.webapis.motion) || null;
 
-console.log("ready to pedo");
-
 pedometer.start( 'PEDOMETER',
 		function onSuccess(data) {
 			var e = document.createEvent("HTMLEvents");
@@ -27,5 +25,3 @@ pedometer.start( 'PEDOMETER',
 			document.dispatchEvent( e );
 		}
 );
-
- console.log("pedo started");
