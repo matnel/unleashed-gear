@@ -120,7 +120,6 @@ var Application = React.createClass({
 			
 			if( data.cumulativeTotalStepCount > 15 ) {
 				this.setState( {status: 'steps'} );
-				console.log("steps ok!");
 			}
 			
 		}).bind(this) );
