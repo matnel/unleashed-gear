@@ -1,0 +1,10 @@
+body {
+	background: white;
+}
+
+.clippy {
+	height: 93px;
+	width: 124px;
+	background: url('./res/map.png');
+	background-position: 0 0;
+}
