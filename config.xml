@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:tizen="http://tizen.org/ns/widgets" id="http://yourdomain/Demo2" version="1.0.0" viewmodes="maximized">
-    <access origin="www.hs.fi" subdomains="true"/>
-    <tizen:allow-navigation>true</tizen:allow-navigation>
+<widget xmlns:tizen="http://tizen.org/ns/widgets" xmlns="http://www.w3.org/ns/widgets" id="http://yourdomain/Demo2" version="1.0.0" viewmodes="maximized">
     <tizen:application id="JPYupCMDz9.Demo2" package="JPYupCMDz9" required_version="2.2"/>
-    <content src="index.html"/>
-    <feature name="http://tizen.org/feature/screen.size.all"/>
-    <feature name="http://tizen.org/feature/network.internet"/>
+
     <icon src="icon.png"/>
-    <name>Demo2</name>
+    <name>Unleashed</name>
+    <content src="index.html"/>
+    
+    <feature name="http://tizen.org/feature/screen.size.all"/>
+   
+    <feature name="http://tizen.org/feature/network.internet"/>
+    <feature name="http://tizen.org/feature/network.wifi"/>
+    <tizen:privilege name="http://tizen.org/privilege/internet"/>
+    <access origin="*" subdomains="true"/>
+    
     <tizen:privilege name="http://developer.samsung.com/privilege/healthinfo"/>
     <tizen:privilege name="http://tizen.org/privilege/healthinfo"/>
-    <tizen:privilege name="http://tizen.org/privilege/internet"/>
+
+    <tizen:privilege name="http://tizen.org/privilege/alarm"/>
+    <tizen:privilege name="http://tizen.org/privilege/application.launch"/>
 </widget>
