@@ -73,6 +73,8 @@ var Avatar = React.createClass({
 			
 			this.setState( {style : { display: 'none' }, trigger: null } );
 			
+			window.close();
+			
 		}).bind(this) );
 	},
 	

@@ -12,4 +12,9 @@ $().ready( function() {
 	
 	runEvery( 10 );
 	
+	window.close = function() {
+		var app = tizen.application.getCurrentApplication();
+		app.exit();
+	}
+	
 } );
