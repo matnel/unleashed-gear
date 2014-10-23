@@ -32,11 +32,11 @@ var Avatar = React.createClass({
 		
 		var clippy = {};
 		// compute new crop area
-		var top = Math.floor( ( this.state.initial + this.state.current ) / 24 );
-		var left = this.state.initial + this.state.current - top * 24;
+		var top = Math.floor( ( this.state.initial + this.state.current ) / 60 );
+		var left = this.state.initial + this.state.current - top * 60;
 		
-		top = - top * 93;
-		left = - left * 124;
+		top = - top * 300;
+		left = - left * 300;
 		
 		clippy['background-position'] = left + 'px ' + top + 'px'
 		
@@ -61,7 +61,7 @@ var Avatar = React.createClass({
 			var c = this.state.current + 1;
 			c = c % this.state.lenght;
 			this.setState( { 'current' : c } );
-		} ).bind(this), 100 );
+		} ).bind(this), 50 );
 		
 		this.setState( { interval : interval } );
 	},
@@ -108,7 +108,13 @@ var Application = React.createClass({
 		  return <Avatar initial={0} lenght={13} />;
 	  }
 	  
-	  return <Avatar initial={266} lenght={11} />;
+	  if( this.state.status == 'normal' ) {
+		  return <Avatar initial={266} lenght={11} />;
+	  }
+	  
+	  // nothing to show
+	  return <Avatar initial={0} lenght={60} />;;
+	  
   },
   
   componentWillMount: function(){
@@ -127,8 +133,7 @@ var Application = React.createClass({
 
 });
 
-
 React.renderComponent(
-	<Application />,
-    document.getElementById('container')
-);
+		<Application />,
+	    document.getElementById('container')
+	);
