@@ -94,17 +94,69 @@ var Avatar = React.createClass({
 	}
 });
 
+var QrCameraScreen = React.createClass({
+	
+	getInitialState: function() {
+		var s = {};
+		
+		s.url = '';
+			
+		return s;
+	},
+	
+	click: function() {
+		canvas = document.createElement('canvas');
+		canvas.width = 500;
+	    canvas.height = 500;
+		canvas.getContext('2d').drawImage( this.getDOMNode(), 0, 0, canvas.width, canvas.height);
+		
+		var d = canvas.getContext('2d').getImageData(0,0, canvas.width, canvas.height);
+		
+		decodeImageData({
+		    width: canvas.width,
+		    height: canvas.height,
+		    data: d.data
+		}, (function myCallback(result) {
+		    if( result.indexOf('http') >= 0 ) {
+		    	this.props.done( result );
+		    }
+		}).bind(this) );
+	},
+	
+	render: function() {
+		return <video onClick={this.click} src={this.state.url}></video>;
+	},
+	
+	componentDidMount: function() {
+		navigator.webkitGetUserMedia( {video: true},
+		(function(stream) {
+			var URL = window.webkitURL;
+		    var url = URL.createObjectURL(stream);
+		    this.setState( { url : url } );
+		}).bind(this), $.noop );
+	}
+});
+
 var Application = React.createClass({
 	
   getInitialState: function() {
 	var s = {};
 	
-	s.status = '';
+	s.status = 'camera';
 	
 	return s;
   },
+  
+  connectToServer: function(url) {
+	  alert("connecting to " + url );
+	  this.setState( { status : 'normal' } );
+  },
 	
   render: function() {
+	  
+	  if( this.state.status == 'camera' ) {
+		  return <QrCameraScreen done={this.connectToServer} />;
+	  }
 
 	  if( this.state.status == 'steps' ) {
 		  return <Avatar initial={0} lenght={13} />;
