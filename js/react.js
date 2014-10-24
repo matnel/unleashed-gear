@@ -73,7 +73,7 @@ var Avatar = React.createClass({
 			
 			this.setState( {style : { display: 'none' }, trigger: null } );
 			
-			window.close();
+			this.props.close();
 			
 		}).bind(this) );
 	},
@@ -147,33 +147,43 @@ var Application = React.createClass({
 	return s;
   },
   
+  _exit: function() {
+		// store current state
+		localStorage.setItem("state", JSON.stringify( this.state ) );
+		
+		window.close();
+  },
+  
   connectToServer: function(url) {
 	  alert("connecting to " + url );
 	  this.setState( { status : 'normal' } );
   },
 	
   render: function() {
-	  
+	  	  
 	  if( this.state.status == 'camera' ) {
 		  return <QrCameraScreen done={this.connectToServer} />;
 	  }
 
 	  if( this.state.status == 'angry' ) {
-		  return <Avatar initial={22} lenght={22} />;
+		  return <Avatar initial={22} lenght={22} close={this._exit} />;
 	  }
 	  
 	  if( this.state.status == 'normal' ) {
 		  console.log("normal");
-		  return <Avatar initial={44} lenght={22} />;
+		  return <Avatar initial={44} lenght={22} close={this._exit} />;
 	  }
 	  
 	  // nothing to show
-	  return <Avatar initial={0} lenght={22} />;;
+	  return <Avatar initial={0} lenght={22} close={this._exit} />;;
 	  
   },
   
   componentWillMount: function(){
-		window.addEventListener("pedometer", (function( event ){
+	  // restore state
+	  this.setState( JSON.parse( localStorage.state ) );
+	  
+	  window.addEventListener("pedometer", (function( event ){
 			
 			var data = event.data;
 			
@@ -183,8 +193,8 @@ var Application = React.createClass({
 				this.setState( {status: 'steps'} );
 			}
 			
-		}).bind(this) );
-	},
+	  }).bind(this) );
+	}
 
 });
 
