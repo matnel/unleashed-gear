@@ -32,8 +32,8 @@ var Avatar = React.createClass({
 		
 		var clippy = {};
 		// compute new crop area
-		var top = Math.floor( ( this.state.initial + this.state.current ) / 60 );
-		var left = this.state.initial + this.state.current - top * 60;
+		var top = Math.floor( ( this.state.initial + this.state.current ) / 22 );
+		var left = this.state.initial + this.state.current - top * 22;
 		
 		top = - top * 300;
 		left = - left * 300;
@@ -158,16 +158,17 @@ var Application = React.createClass({
 		  return <QrCameraScreen done={this.connectToServer} />;
 	  }
 
-	  if( this.state.status == 'steps' ) {
-		  return <Avatar initial={0} lenght={13} />;
+	  if( this.state.status == 'angry' ) {
+		  return <Avatar initial={22} lenght={22} />;
 	  }
 	  
 	  if( this.state.status == 'normal' ) {
-		  return <Avatar initial={266} lenght={11} />;
+		  console.log("normal");
+		  return <Avatar initial={44} lenght={22} />;
 	  }
 	  
 	  // nothing to show
-	  return <Avatar initial={0} lenght={60} />;;
+	  return <Avatar initial={0} lenght={22} />;;
 	  
   },
   
