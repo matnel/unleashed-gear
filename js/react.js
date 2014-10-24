@@ -150,27 +150,25 @@ var Application = React.createClass({
   _exit: function() {
 		// store current state
 		localStorage.setItem("state", JSON.stringify( this.state ) );
-		
 		window.close();
   },
   
   connectToServer: function(url) {
 	  alert("connecting to " + url );
-	  this.setState( { status : 'normal' } );
+	  this.setState( { status : 'angry' } );
   },
 	
   render: function() {
-	  	  
+	  
 	  if( this.state.status == 'camera' ) {
 		  return <QrCameraScreen done={this.connectToServer} />;
 	  }
 
 	  if( this.state.status == 'angry' ) {
-		  return <Avatar initial={22} lenght={22} close={this._exit} />;
+		  return <Avatar initial={0} lenght={22} close={this._exit} />;
 	  }
 	  
 	  if( this.state.status == 'normal' ) {
-		  console.log("normal");
 		  return <Avatar initial={44} lenght={22} close={this._exit} />;
 	  }
 	  
@@ -190,7 +188,7 @@ var Application = React.createClass({
 			console.log( data.cumulativeTotalStepCount );
 			
 			if( data.cumulativeTotalStepCount > 15 ) {
-				this.setState( {status: 'steps'} );
+				this.setState( {status: 'normal'} );
 			}
 			
 	  }).bind(this) );
