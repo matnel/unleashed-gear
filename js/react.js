@@ -26,6 +26,12 @@ var Avatar = React.createClass({
 		return s;
 	},
 	
+	_click: function() {
+		localStorage.setItem("state", null);
+		console.log("cleared localstore");
+		window.close();
+	},
+	
 	render: function() {
 		
 		var style = this.state.style;
@@ -40,7 +46,7 @@ var Avatar = React.createClass({
 		
 		clippy['background-position'] = left + 'px ' + top + 'px'
 		
-		return  <div style={style}>
+		return  <div onClick={this._click} style={style}>
 					<div style={clippy} className="clippy" ></div>
 				</div>
 	},
@@ -179,7 +185,8 @@ var Application = React.createClass({
   
   componentWillMount: function(){
 	  // restore state
-	  this.setState( JSON.parse( localStorage.state ) );
+	  console.log( localStorage.state );
+	  if( localStorage.state ) this.setState( JSON.parse( localStorage.state ) );
 	  
 	  window.addEventListener("pedometer", (function( event ){
 			
@@ -187,7 +194,7 @@ var Application = React.createClass({
 			
 			console.log( data.cumulativeTotalStepCount );
 			
-			if( data.cumulativeTotalStepCount > 15 ) {
+			if( data.cumulativeTotalStepCount > 10 ) {
 				this.setState( {status: 'normal'} );
 			}
 			
