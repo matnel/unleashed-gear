@@ -148,7 +148,7 @@ var Application = React.createClass({
   getInitialState: function() {
 	var s = {};
 	
-	s.status = 'camera';
+	s.status = 'normal';
 	
 	return s;
   },
@@ -192,9 +192,10 @@ var Application = React.createClass({
 			
 			var data = event.data;
 			
-			console.log( data.cumulativeTotalStepCount );
+			// TODO: should there be acumulative too?
+			console.log( JSON.stringify( data ) );
 			
-			if( data.cumulativeTotalStepCount > 10 ) {
+			if( data.cumulativeTotalStepCount > 3 ) {
 				this.setState( {status: 'normal'} );
 			}
 			

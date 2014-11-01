@@ -1,5 +1,7 @@
-/** react to shaking **/
+(function() {
 
+// shaking
+	
 window.ondevicemotion = function( data ) {
 	
 	var sum = 0;
@@ -7,21 +9,24 @@ window.ondevicemotion = function( data ) {
 	sum += Math.abs( data.acceleration.y );
 	sum += Math.abs( data.acceleration.z );
 	
-	if( sum > 15 ) {
+	if( sum > 45 ) {
 		var e = document.createEvent("HTMLEvents");
 		e.initEvent("shake", true, true);
 		document.dispatchEvent( e );
 	}
 }
 
-pedometer = (tizen && tizen.humanactivitymonitor) ||
-(window.webapis && window.webapis.motion) || null;
+// step counters
 
-pedometer.start( 'PEDOMETER',
-		function onSuccess(data) {
-			var e = document.createEvent("HTMLEvents");
-			e.initEvent("pedometer", true, true);
-			e.data = data;
-			document.dispatchEvent( e );
-		}
-);
+function onSuccess(data) {
+	var e = document.createEvent("HTMLEvents");
+	e.initEvent("pedometer", true, true);
+	e.data = data;
+	document.dispatchEvent( e );
+}
+
+
+webapis.motion.start("PEDOMETER", onSuccess );
+webapis.motion.getMotionInfo("PEDOMETER", onSuccess );
+
+})()
