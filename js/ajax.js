@@ -4,13 +4,16 @@
 $().ready( function() {
 
 	var agent = null;
-	var socket = null;
+	var _socket = null;
 	var CHANNELID = 104;
 	var ProviderAppName = "HelloAccessoryProvider";
 
 	var agentCallback = {
 			onconnect : function(socket) {
-				socket = socket;
+				
+				_socket = socket;
+				
+				console.log("Socket ok!");
 
 				socket.setSocketStatusListener(function(reason){
 					console.log("Service connection lost, Reason : [" + reason + "]");
@@ -42,10 +45,14 @@ $().ready( function() {
 
 	});
 
-	window.sendAjax = function( url , data, callback ) {
-		SASocket.setDataReceiveListener( callback );
-		SASocket.sendData(CHANNELID,  url );
+	var _sendAjax = function( url , data, callback ) {
+		_socket.setDataReceiveListener( function(id, data) {
+			callback( data );
+		} );
+		_socket.sendData(CHANNELID,  url );
 	}
+	
+	window.sendAjax = _sendAjax;
 
 
 });
