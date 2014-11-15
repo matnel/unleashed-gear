@@ -12,14 +12,6 @@ $().ready( function() {
 			onconnect : function(socket) {
 				
 				_socket = socket;
-				
-				console.log("Socket ok!");
-
-				socket.setSocketStatusListener(function(reason){
-					console.log("Service connection lost, Reason : [" + reason + "]");
-					disconnect();
-				});
-
 			},
 			onerror : $.noop
 		};
@@ -31,9 +23,7 @@ $().ready( function() {
 						agent.setServiceConnectionListener( agentCallback );
 						agent.requestServiceConnection(peerAgent);
 					}
-				} catch(err) {
-					console.log("exception [" + err.name + "] msg[" + err.message + "]");
-				}
+				} catch(err) {}
 			},
 			onerror : $.noop
 		}

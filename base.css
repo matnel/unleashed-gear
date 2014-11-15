@@ -9,3 +9,8 @@ body {
 	background: url('./res/map.png');
 	background-position: 0 0;
 }
+
+.clippy-text {
+	color: white;
+	height: 250%;
+}
