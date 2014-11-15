@@ -47,6 +47,7 @@ var Avatar = React.createClass({
 		clippy['background-position'] = left + 'px ' + top + 'px'
 		
 		return  <div onClick={this._click} style={style}>
+					<div className="clippy-text">{this.props.text}</div>
 					<div style={clippy} className="clippy" ></div>
 				</div>
 	},
@@ -148,25 +149,30 @@ var Application = React.createClass({
   getInitialState: function() {
 	var s = {};
 	
-	s.status = 'normal';
+	s.status = 'demo';
+	s.status_step = -1;
 	
 	return s;
   },
   
   _exit: function() {
 		// store current state
+	  	console.log("Storing " + JSON.stringify( this.state ) );
 		localStorage.setItem("state", JSON.stringify( this.state ) );
 		window.close();
   },
   
   connectToServer: function(url) {
-	  alert("connecting to " + url );
+	  
+	  sendAjax( url , {}, function(data) {
+	  });
+	  
 	  this.setState( { status : 'angry' } );
   },
 	
   render: function() {
 	  
-	  if( this.state.status == 'camera' ) {
+	  /*if( this.state.status == 'camera' ) {
 		  return <QrCameraScreen done={this.connectToServer} />;
 	  }
 
@@ -176,11 +182,40 @@ var Application = React.createClass({
 	  
 	  if( this.state.status == 'normal' ) {
 		  return <Avatar initial={44} lenght={22} close={this._exit} />;
-	  }
+	  }*/
 	  
 	  // nothing to show
-	  return <Avatar initial={0} lenght={22} close={this._exit} />;;
 	  
+	  if( this.state.status == 'demo' ) {
+		  
+		  var step = this.state.status_step;
+		  
+		  step++;
+		  
+		  this.state.status = 'demo';
+		  this.state.status_step = step;
+		  this.setState();
+		  
+		  console.log("state " + JSON.stringify( this.state ) );
+		  
+		  if( step == 0 ) {
+			  return <Avatar initial={44} lenght={22} text={"Good morning!"} close={this._exit} />;
+		  }
+		  
+		  if( step == 1 ) {
+			  return <Avatar initial={22} lenght={22} text={"I need a walk! Haven't moved for three hours."} close={this._exit} />;
+		  }
+		  
+		  if( step == 2 ) {
+			  return <Avatar initial={44} lenght={0} text={"The café nearby is said to have delicious food. I'm hungry."} close={this._exit} />;
+		  }
+		  
+		  if( step == 3 ) {
+			  return <Avatar initial={44} lenght={0} text={"It's time to go to bed after an active day."} close={this._exit} />;
+		  }
+	   }
+	  
+	  return <Avatar initial={44} lenght={22} close={this._exit} />;
   },
   
   componentWillMount: function(){
@@ -192,9 +227,7 @@ var Application = React.createClass({
 			
 			var data = event.data;
 			
-			// TODO: should there be acumulative too?
-			console.log( JSON.stringify( data ) );
-			
+			// TODO: should there be acumulative too?			
 			if( data.cumulativeTotalStepCount > 3 ) {
 				this.setState( {status: 'normal'} );
 			}
