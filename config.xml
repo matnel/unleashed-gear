@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <widget xmlns:tizen="http://tizen.org/ns/widgets" xmlns="http://www.w3.org/ns/widgets" id="http://yourdomain/Demo2" version="1.0.0" viewmodes="maximized">
+    <access origin="*" subdomains="true"></access>
     <tizen:application id="JPYupCMDz9.Demo2" package="JPYupCMDz9" required_version="2.2"/>
-
-    <icon src="icon.png"/>
-    <name>Unleashed</name>
     <content src="index.html"/>
-    
     <feature name="http://tizen.org/feature/screen.size.all"/>
-   
     <feature name="http://tizen.org/feature/network.internet"/>
     <feature name="http://tizen.org/feature/network.wifi"/>
+    <feature name="http://developer.samsung.com/tizen/feature/network.accessory_protocol"/>
+    <icon src="icon.png"/>
+    <tizen:metadata key="AccessoryServicesLocation" value="res/xml/accessoryservices.xml"/>
+    <name>Unleashed</name>
+    <name>HelloAccessoryConsumer</name>
     <tizen:privilege name="http://tizen.org/privilege/internet"/>
-    <access origin="*" subdomains="true"/>
-    
     <tizen:privilege name="http://developer.samsung.com/privilege/healthinfo"/>
     <tizen:privilege name="http://tizen.org/privilege/healthinfo"/>
-
     <tizen:privilege name="http://tizen.org/privilege/alarm"/>
     <tizen:privilege name="http://tizen.org/privilege/application.launch"/>
+    <tizen:privilege name="http://developer.samsung.com/privilege/accessoryprotocol"/>
+    <tizen:setting background-support="disable" encryption="disable" hwkey-event="enable"/>
 </widget>
